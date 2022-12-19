@@ -32,17 +32,34 @@ function onSubmit(event){
     event.preventDefault();
     console.log(formData);
     refs.myForm.reset();
-    localStorage.removeItem(STORAGE_KEY);
+    try
+    {
+        localStorage.removeItem(STORAGE_KEY);
+    }
+    catch(error){
+        console.log(`${error.name}\n${error.message}`);
+    }
 }
 
 function setStorageItem(element,key){
-    formData[element.name]=element.value;
-    localStorage.setItem(key,JSON.stringify(formData));
-    return formData;
+
+    try{
+        formData[element.name]=element.value;
+        localStorage.setItem(key,JSON.stringify(formData));
+        return formData;
+    }
+    catch(error){
+        console.log(`${error.name}\n${error.message}`);
+    }
 }
 
 function getStorageIteme(key){
-    return JSON.parse(localStorage.getItem(key));
+    try{
+        return JSON.parse(localStorage.getItem(key));
+    }
+    catch(error){
+        console.log(`${error.name}\n${error.message}`);
+    }
 }
 
 function checkProperty(object, key){
